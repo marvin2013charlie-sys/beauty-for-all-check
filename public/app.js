@@ -119,10 +119,6 @@ if (resetNote) {
   note.textContent = resetNote;
   note.classList.add('ok');
 }
-const dialog = document.getElementById('help-dialog');
-document.getElementById('help-button')?.addEventListener('click', () => dialog.showModal());
-dialog?.querySelectorAll('.dialog-close, .dialog-done').forEach(button => button.addEventListener('click', () => dialog.close()));
-dialog?.addEventListener('click', event => { if (event.target === dialog) { const box = dialog.getBoundingClientRect(); if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) dialog.close(); } });
 document.querySelectorAll('[data-logout]').forEach(button => button.addEventListener('click', async () => {
   button.disabled = true;
   try { const response = await fetch('/api/logout', {method:'POST',headers:{'Content-Type':'application/json'},body:'{}'}); if (!response.ok) throw new Error(); location.replace('/'); }
