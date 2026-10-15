@@ -21,33 +21,38 @@ dialog{width:calc(100% - 32px);max-width:440px;border:1px solid var(--line);bord
 
 /* Phone sign-in, including a phone turned sideways. A wide desk keeps the blue panel. */
 @media(max-width:960px){
-  .login-page{background:#fff}
-  .login-page .login-layout{display:flex;flex-direction:column;margin:0;min-height:100svh;border-radius:0;overflow:visible;background:#fff}
+  .login-page{background:#F4F5F8}
+  .login-page .login-layout{display:flex;flex-direction:column;margin:0;min-height:100svh;min-height:100dvh;border-radius:0;overflow:visible;background:transparent}
   .login-page .brand-panel{min-height:0;flex:0 0 auto;flex-direction:row;align-items:center;padding:calc(12px + env(safe-area-inset-top)) 20px 14px}
-  .login-page .brand-panel .brand{align-self:center}
-  .login-page .brand-panel .brand-name{font-size:20px;color:#fff}
   .login-page .brand-message,.login-page .brand-lines,.login-page .brand-panel-footer{display:none}
-  .login-page .sign-in-panel{flex:1 1 auto;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;padding:22px 20px calc(16px + env(safe-area-inset-bottom));width:100%}
-  .login-page .login-content{max-width:none}
-  .login-page .intro{margin-bottom:16px}
-  .login-page .intro h1{font-size:30px;letter-spacing:-.8px;margin:8px 0 0}
-  .login-page .role-selector{margin-top:2px}
-  .login-page .role-selector button{min-height:48px;font-size:15px}
-  .login-page .login-card{padding-top:18px}
-  .login-page .login-card form{margin-top:16px}
-  .login-page .pin-label-row{font-size:13px;margin-bottom:10px}
-  .login-page .reveal-button{min-height:44px;min-width:72px;font-size:13px;padding:10px 4px 10px 12px}
-  .login-page .pin-group{gap:10px}
-  .login-page .pin-input{height:68px;border-radius:14px;font-size:28px}
-  .login-page .sign-in-button{height:52px;border-radius:14px;font-size:16px}
-  .login-page .forgot-row{margin-top:8px;font-size:14px}
+  .login-page .sign-in-panel{flex:1 1 auto;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;padding:8px 24px calc(18px + env(safe-area-inset-bottom));width:100%}
+  .login-page .login-content{width:100%;max-width:400px;margin:0 auto}
+  .login-page .role-selector{margin-top:0;background:#fff;border-radius:16px;padding:4px}
+  .login-page .role-selector button{min-height:48px;border-radius:12px;font-size:15px}
+  .login-page .login-card{padding-top:8px}
+  .login-page .login-card form{margin-top:22px}
+  .login-page .pin-label-row{max-width:360px;margin:0 auto 12px;font-size:15px}
+  .login-page .reveal-button{min-height:44px;min-width:72px;font-size:15px;padding:8px 0 8px 12px}
+  .login-page .pin-group{max-width:360px;margin:0 auto;gap:12px}
+  .login-page .pin-input{height:auto;aspect-ratio:1;max-height:76px;border-radius:18px;border-color:#E3E6EE;background:#fff;font-size:32px;box-shadow:0 1px 2px #1A1D2908}
+  .login-page .pin-input:focus{border-color:var(--blue);background:#fff;box-shadow:0 0 0 4px #2B5CE629}
+  .login-page .form-message{max-width:360px;margin-left:auto;margin-right:auto;font-size:13px}
+  .login-page .sign-in-button{max-width:360px;margin:0 auto;height:56px;border-radius:16px;font-size:17px}
+  .login-page .forgot-row{max-width:360px;margin:6px auto 0;font-size:15px}
   .login-page .forgot-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 12px}
-  .login-page .login-footer{position:static;margin-top:auto;padding-top:18px;width:100%;text-align:center}
-  .login-page.signin .brand-panel{background:transparent;color:#1A1D29;justify-content:center;padding:calc(36px + env(safe-area-inset-top)) 20px 4px;overflow:visible}
+  .login-page .login-footer{position:static;margin-top:auto;padding-top:28px;width:100%;text-align:center}
+  .login-page.signin .brand-panel{background:transparent;color:#1A1D29;justify-content:center;overflow:visible;padding:calc(48px + env(safe-area-inset-top)) 24px 8px}
   .login-page.signin .brand-panel .brand{align-self:center;margin-inline:auto}
-  .login-page.signin .brand-panel .brand-name{color:#1A1D29;font-size:26px}
-  .login-page.signin .intro,.login-page.signin .card-description,.login-page.signin .card-footer{display:none}
-  .login-page.signin .login-card{padding-top:4px}
+  .login-page.signin .brand-panel .brand-name{color:#1A1D29;font-size:30px;letter-spacing:.06em}
+  .login-page.signin .intro,.login-page.signin .card-description,.login-page.signin .card-footer,.login-page.signin .sign-in-button>svg{display:none}
   .login-page.signin .login-card h2{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .login-page .recover-form{max-width:400px;margin-left:auto;margin-right:auto}
   .login-page .recover-form input{height:52px;font-size:16px}
+}
+@media(max-width:960px) and (max-height:520px){
+  .login-page.signin .brand-panel{padding-top:calc(12px + env(safe-area-inset-top));padding-bottom:0}
+  .login-page.signin .brand-panel .brand-name{font-size:22px}
+  .login-page .login-card form{margin-top:12px}
+  .login-page .pin-input{height:56px;font-size:26px}
+  .login-page .sign-in-button{height:48px}
 }
