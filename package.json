@@ -1,0 +1,12 @@
+{
+  "name": "beauty-for-all-login",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "reset-pins": "node server.mjs --reset-pins"
+  },
+  "engines": { "node": ">=22.13 <26" }
+}

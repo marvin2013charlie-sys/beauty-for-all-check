@@ -1,0 +1,47 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtemp,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {randomUUID} from 'node:crypto';
+import {createApp} from '../server.mjs';
+
+test('working hours, receipt identity, refunds and drawer permissions',async t=>{
+ const dataDir=await mkdtemp(join(tmpdir(),'bfa-till-')),commands=[];
+ const server=await createApp({dataDir,suppliedPins:{admin:'0937',staff:'5826'},drawer:{open:async command=>{commands.push(command);}},now:()=>Date.parse('2026-10-07T12:00:00Z')});
+ await new Promise(r=>server.listen(0,'127.0.0.1',r));t.after(async()=>{await new Promise(r=>server.close(r));await rm(dataDir,{recursive:true,force:true});});
+ const base=`http://127.0.0.1:${server.address().port}`;
+ const login=async(role,pin)=>{const r=await fetch(base+'/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({role,pin})});return r.headers.get('set-cookie').split(';')[0];};
+ const admin=await login('admin','0937'),staff=await login('staff','5826');
+ const request=async(kind,body,cookie=staff)=>{const r=await fetch(base+'/api/records/'+kind,{method:'POST',headers:{'Content-Type':'application/json',Cookie:cookie},body:JSON.stringify(body)});return {status:r.status,data:await r.json()};};
+ const save=async(kind,body,cookie=staff)=>{const r=await request(kind,body,cookie);assert.equal(r.status,200,JSON.stringify(r.data));return r.data;};
+ const a=await save('staff',{name:'TEST A'},admin),b=await save('staff',{name:'TEST B'},admin);
+ const opening=await (await fetch(base+'/api/workspace',{headers:{Cookie:admin}})).json();
+ for(const member of [a,b]){const row=opening.hours.find(h=>h.staff_id===member.id);assert.equal(row.days.length,7);assert.ok(row.days.every(day=>day.start==='09:00'&&day.end==='19:00'));}
+ const c=await save('customers',{name:'TEST Customer'}),service=await save('services',{name:'TEST Service',price:'20',duration:45},admin);
+ const input={customer_id:c.id,staff_id:a.id,date:'2026-10-07',time:'09:00',service_ids:[service.id],status:'booked'};
+ assert.equal((await request('appointments',{...input,time:'08:00'})).status,409);
+ const days=Array(7).fill(null);days[3]={start:'09:00',end:'17:00'};
+ const hours=await save('hours',{staff_id:a.id,days},admin);
+ assert.equal((await request('hours',{staff_id:b.id,days})).status,403);
+ assert.equal((await request('appointments',{...input,time:'16:30'})).status,409);
+ assert.equal((await request('appointments',{...input,date:'2026-10-08'})).status,409);
+ let appointment=await save('appointments',input);
+ assert.equal((await request('appointments',{...input,time:'09:30'})).status,409);
+ assert.equal((await request('hours',{...hours,days:Array(7).fill(null)},admin)).status,409);
+ appointment=await save('appointments',{...appointment,status:'cancelled'});
+ const replacement=await save('appointments',input);await save('appointments',{...replacement,action:'delete'});
+ const cash={date:'2026-10-07',staff_id:a.id,customer_id:c.id,items:[{kind:'services',id:service.id,quantity:1,staff_id:b.id}],discount:'2',method:'cash',tendered:'20',request_key:randomUUID()};
+ assert.equal((await request('sales',{...cash,tendered:'1'})).status,400);assert.equal(commands.length,0);
+ const sale=await save('sales',cash);assert.match(sale.receipt_number,/^BFA-\d{8}$/);assert.equal(sale.total,1800);assert.equal(sale.change,200);assert.equal(sale.items[0].staff_id,b.id);assert.equal(commands.length,1);
+ assert.equal((await save('sales',cash)).receipt_number,sale.receipt_number);assert.equal(commands.length,1);
+ const card=await save('sales',{...cash,method:'card',card_confirmed:true,request_key:randomUUID()});assert.equal(commands.length,1);assert.notEqual(card.receipt_number,sale.receipt_number);
+ await save('sales',{...card,action:'delete'},admin);
+ const next=await save('sales',{...cash,method:'card',card_confirmed:true,request_key:randomUUID()});assert.ok(next.receipt_number>card.receipt_number);
+ assert.equal((await request('drawer',{reason:'TEST',request_key:randomUUID()})).status,403);
+ const manual={reason:'TEST manager count',request_key:randomUUID()};await save('drawer',manual,admin);await save('drawer',manual,admin);assert.equal(commands.length,2);
+ await save('refunds',{sale_id:sale.id,date:'2026-10-07',amount:'3',method:'cash',confirmed:true,notes:'TEST cash returned'},admin);
+ assert.equal((await request('refunds',{sale_id:sale.id,date:'2026-10-07',amount:'20',method:'cash',confirmed:true,notes:'too much'},admin)).status,400);
+ const count=await save('cashups',{date:'2026-10-07',opening:'50',counted:'64',completed_by:'TEST Alex'});assert.equal(count.cash,1800);assert.equal(count.refunds,300);assert.equal(count.expected,6500);assert.equal(count.difference,-100);assert.equal(count.completed_by,'TEST Alex');assert.ok(count.at);assert.equal(count.card,undefined);
+ const state=await (await fetch(base+'/api/workspace',{headers:{Cookie:admin}})).json();assert.ok(state.audit.some(a=>a.action==='drawer_request'&&a.actor==='admin'));assert.equal(commands.length,2);
+});

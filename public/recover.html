@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#2B5CE6">
+  <meta name="description" content="Reset the Beauty For All admin PIN.">
+  <title>Forgot admin PIN · Beauty For All</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/recover.js" defer></script>
+</head>
+<body class="login-page">
+  <a class="skip-link" href="#main">Skip to recovery</a>
+  <main id="main" class="login-layout">
+    <aside class="brand-panel" aria-label="Beauty For All">
+      <a class="brand" href="/" aria-label="Beauty For All home">
+        <span class="brand-copy"><span class="brand-name">Beauty For All</span></span>
+      </a>
+      <div class="brand-message">
+        <span class="eyebrow">ADMIN RECOVERY</span>
+        <h2>A new PIN,<br>on this<br> computer.</h2>
+        <p>The link in the email only opens here.</p>
+      </div>
+      <svg class="brand-lines" viewBox="0 0 640 700" fill="none" aria-hidden="true"><path d="M-180 650C80 230 290 760 710 140M-180 685C80 265 290 795 710 175M-180 720C80 300 290 830 710 210M-180 755C80 335 290 865 710 245M-180 790C80 370 290 900 710 280"/></svg>
+      <span class="brand-panel-footer">Made for beautiful working days.</span>
+    </aside>
+    <div class="sign-in-panel">
+      <section class="login-content" aria-labelledby="recover-title">
+        <div class="intro">
+          <span class="eyebrow">FORGOTTEN ADMIN PIN</span>
+          <h1 id="recover-title">Forgot your PIN<span>.</span></h1>
+          <p id="recover-intro">Enter the full name, email and date of birth saved in Settings. If they match, a link is emailed to the registered address.</p>
+        </div>
+        <form id="identity-form" class="recover-form" novalidate>
+          <label>Full name<input name="name" autocomplete="name" required maxlength="120"></label>
+          <label>Email<input name="email" type="email" autocomplete="email" required maxlength="160"></label>
+          <label>Date of birth<input name="dob" type="date" required></label>
+          <p class="form-message" id="recover-message" aria-live="polite"></p>
+          <button class="sign-in-button" type="submit">Email a reset link</button>
+        </form>
+        <form id="reset-form" class="recover-form" hidden novalidate>
+          <label>New admin PIN<input name="pin" type="password" inputmode="numeric" autocomplete="new-password" maxlength="4" required></label>
+          <label>Confirm new PIN<input name="confirm" type="password" inputmode="numeric" autocomplete="new-password" maxlength="4" required></label>
+          <p class="form-message" id="reset-message" aria-live="polite"></p>
+          <button class="sign-in-button" type="submit">Save new PIN</button>
+          <p class="forgot-row">Refreshing this page clears the link. Open the email on this computer again if you need a new one.</p>
+        </form>
+        <p class="forgot-row"><a class="forgot-link" href="/">Back to sign in</a></p>
+      </section>
+      <footer class="login-footer">© 2026 Beauty For All</footer>
+    </div>
+  </main>
+  <noscript><div class="noscript-note">Please enable JavaScript to reset the admin PIN.</div></noscript>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en-GB">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Beauty For All · Workspace</title><link rel="icon" href="/favicon.svg"><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="/workspace.css"><script src="/workspace.js" defer></script></head>
+<body data-role="{{ROLE}}" data-mode="{{MODE}}">
+<a class="skip" href="#content">Skip to content</a>
+<div class="app-shell">
+<aside class="sidebar"><a class="brand" href="/{{MODE}}"><span><strong>Beauty For All</strong></span></a><nav id="navigation" aria-label="Main navigation"></nav><div class="profile"><span class="avatar" id="profile-initial">A</span><div><strong id="profile-name">Admin</strong><small id="profile-caption">Full workspace access</small></div><button class="icon-button" id="logout" aria-label="Sign out">↪</button></div></aside>
+<div class="app-main"><header class="toolbar"><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search this page" aria-label="Search this page"></label><div class="toolbar-actions"><a id="mode-link" class="quiet-button" href="/staff" hidden>Staff Mode</a><button id="new-appointment" class="primary">+ New appointment</button></div></header><main id="content" tabindex="-1"><div id="notice" role="status" hidden></div><div id="view"><p class="empty">Loading your workspace…</p></div></main></div>
+</div>
+<dialog id="record-dialog" aria-labelledby="dialog-title"><form id="record-form"><div class="dialog-heading"><h2 id="dialog-title"></h2><button type="button" class="icon-button" id="close-dialog" aria-label="Close dialog">×</button></div><div id="fields"></div><p id="form-error" class="error" role="alert"></p><div class="dialog-actions"><button type="button" class="secondary" id="cancel-dialog">Cancel</button><button type="submit" class="primary" id="save-record">Save</button></div></form></dialog>
+<noscript>Please enable JavaScript to use your workspace.</noscript>
+</body></html>
