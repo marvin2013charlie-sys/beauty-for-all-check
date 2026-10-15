@@ -9,7 +9,7 @@ dialog{width:calc(100% - 32px);max-width:440px;border:1px solid var(--line);bord
 .login-layout{display:grid;grid-template-columns:44% 56%;margin:20px;min-height:calc(100svh - 40px);background:white;border-radius:24px;overflow:hidden}
 .brand-panel{position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;padding:42px;background:var(--blue);color:white;min-height:760px}
 .brand-panel .brand{align-self:flex-start}.brand-panel .brand-mark{background:white;color:var(--blue)}.brand-panel .brand-tagline{color:#FFFFFFB8}.brand-panel .brand-name{font-size:22px}
-.brand-message{position:relative;z-index:1;margin:auto 0;padding:105px 0 110px}.brand-message .eyebrow{color:#FFFFFFB8;font-size:10px;letter-spacing:.17em;position:relative;top:12px;left:-10px}.brand-message h2{font-size:clamp(38px,3.7vw,58px);line-height:1.16;font-weight:600;letter-spacing:-2px;margin:24px 0}.brand-message p{font-size:14px;line-height:1.9;color:#FFFFFFCF;margin:0}
+.brand-message{position:absolute;z-index:1;left:0;right:0;bottom:0;margin:0;padding:0 36px 0 0}.brand-message .eyebrow{color:#FFFFFFB8;font-size:10px;letter-spacing:.17em;position:relative;top:0;left:0}.brand-message h2{font-size:clamp(38px,3.7vw,58px);line-height:1.16;font-weight:600;letter-spacing:-2px;margin:14px 0 10px}.brand-message p{font-size:14px;line-height:1.35;color:#FFFFFFCF;margin:0}
 .brand-lines{position:absolute;z-index:-1;width:130%;height:75%;left:-15%;bottom:-5%;stroke:#FFFFFF30;stroke-width:1;pointer-events:none}
 .brand-panel-footer{font-size:11px;letter-spacing:.02em;color:#FFFFFFBD;position:relative}
 .sign-in-panel{position:relative;display:flex;align-items:center;justify-content:center;padding:65px 48px 85px}.login-footer{position:absolute;bottom:26px;font-size:10px;color:#777D8C}
@@ -18,3 +18,36 @@ dialog{width:calc(100% - 32px);max-width:440px;border:1px solid var(--line);bord
 @media(max-width:720px){.login-layout{display:block;margin:12px;border-radius:20px}.brand-panel{min-height:0;padding:26px 28px}.brand-message{margin:0;padding:47px 0 16px}.brand-message h2{font-size:34px;letter-spacing:-1.2px;margin:12px 0}.brand-message h2 br:last-child{display:none}.brand-message p,.brand-panel-footer{display:none}.brand-lines{width:100%;height:180%;left:22%;bottom:-55%}.brand-message .eyebrow{font-size:8px;top:6px;left:-6px}.sign-in-panel{padding:36px 26px 66px}.intro h1{font-size:32px}.intro{margin-bottom:24px}.login-card{padding-top:25px}.pin-group{gap:10px}.pin-input{height:62px}.login-support{margin-top:17px}.login-footer{bottom:22px}.site-header{padding:0 24px}.brand-name{font-size:17px}.brand-tagline{font-size:8px}.portal-content{padding:28px 20px}.portal-content h1{font-size:28px}.preview-banner{align-items:flex-start}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 .forgot-row{margin:14px 0 0;text-align:center;font-size:12px;line-height:1.5;color:var(--muted)}.forgot-link{color:var(--blue);font-weight:600}.forgot-link:hover{text-decoration:underline}.form-message.ok{color:#1d7a3a}.form-message.pending{color:#8a5a00}.recover-form{display:grid;gap:14px;margin-top:8px}.recover-form label{display:grid;gap:6px;font-size:12px;font-weight:600;text-align:left}.recover-form input{height:48px;border:1.5px solid #DFE3ED;border-radius:12px;padding:0 14px;background:#FAFBFD;color:#1A1D29}.recover-form input:focus{outline:none;border-color:var(--blue);background:white;box-shadow:0 0 0 3px #2B5CE616}
+
+/* Phone sign-in, including a phone turned sideways. A wide desk keeps the blue panel. */
+@media(max-width:960px){
+  .login-page{background:#fff}
+  .login-page .login-layout{display:flex;flex-direction:column;margin:0;min-height:100svh;border-radius:0;overflow:visible;background:#fff}
+  .login-page .brand-panel{min-height:0;flex:0 0 auto;flex-direction:row;align-items:center;padding:calc(12px + env(safe-area-inset-top)) 20px 14px}
+  .login-page .brand-panel .brand{align-self:center}
+  .login-page .brand-panel .brand-name{font-size:20px;color:#fff}
+  .login-page .brand-message,.login-page .brand-lines,.login-page .brand-panel-footer{display:none}
+  .login-page .sign-in-panel{flex:1 1 auto;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;padding:22px 20px calc(16px + env(safe-area-inset-bottom));width:100%}
+  .login-page .login-content{max-width:none}
+  .login-page .intro{margin-bottom:16px}
+  .login-page .intro h1{font-size:30px;letter-spacing:-.8px;margin:8px 0 0}
+  .login-page .role-selector{margin-top:2px}
+  .login-page .role-selector button{min-height:48px;font-size:15px}
+  .login-page .login-card{padding-top:18px}
+  .login-page .login-card form{margin-top:16px}
+  .login-page .pin-label-row{font-size:13px;margin-bottom:10px}
+  .login-page .reveal-button{min-height:44px;min-width:72px;font-size:13px;padding:10px 4px 10px 12px}
+  .login-page .pin-group{gap:10px}
+  .login-page .pin-input{height:68px;border-radius:14px;font-size:28px}
+  .login-page .sign-in-button{height:52px;border-radius:14px;font-size:16px}
+  .login-page .forgot-row{margin-top:8px;font-size:14px}
+  .login-page .forgot-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 12px}
+  .login-page .login-footer{position:static;margin-top:auto;padding-top:18px;width:100%;text-align:center}
+  .login-page.signin .brand-panel{background:transparent;color:#1A1D29;justify-content:center;padding:calc(36px + env(safe-area-inset-top)) 20px 4px;overflow:visible}
+  .login-page.signin .brand-panel .brand{align-self:center;margin-inline:auto}
+  .login-page.signin .brand-panel .brand-name{color:#1A1D29;font-size:26px}
+  .login-page.signin .intro,.login-page.signin .card-description,.login-page.signin .card-footer{display:none}
+  .login-page.signin .login-card{padding-top:4px}
+  .login-page.signin .login-card h2{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .login-page .recover-form input{height:52px;font-size:16px}
+}
