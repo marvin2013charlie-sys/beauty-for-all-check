@@ -41,18 +41,46 @@ dialog{width:calc(100% - 32px);max-width:440px;border:1px solid var(--line);bord
   .login-page .forgot-row{max-width:360px;margin:6px auto 0;font-size:15px}
   .login-page .forgot-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 12px}
   .login-page .login-footer{position:static;margin-top:auto;padding-top:28px;width:100%;text-align:center}
-  .login-page.signin .brand-panel{background:transparent;color:#1A1D29;justify-content:center;overflow:visible;padding:calc(48px + env(safe-area-inset-top)) 24px 8px}
-  .login-page.signin .brand-panel .brand{align-self:center;margin-inline:auto}
-  .login-page.signin .brand-panel .brand-name{color:#1A1D29;font-size:30px;letter-spacing:.06em}
+  .login-page.signin{height:100svh;height:100dvh;overflow:hidden}
+  .login-page.signin .login-layout{height:100%;min-height:0;overflow:hidden}
+  .login-page.signin .brand-panel{display:flex;flex-direction:column;align-items:flex-start;align-self:center;width:min(400px,calc(100% - 32px));margin:calc(10px + env(safe-area-inset-top)) 0 0;padding:16px 16px 14px;background:var(--blue);color:#fff;border-radius:22px;overflow:hidden;min-height:0}
+  .login-page.signin .brand-panel .brand{align-self:flex-start;margin:0}
+  .login-page.signin .brand-panel .brand-name{color:#fff;font-size:20px;letter-spacing:.04em}
+  .login-page.signin .brand-message{display:block;position:static;left:auto;right:auto;bottom:auto;margin:8px 0 0;padding:0}
+  .login-page.signin .brand-message .eyebrow{display:block;position:static;top:0;left:0;color:#FFFFFFC4;font-size:10px;letter-spacing:.14em}
+  .login-page.signin .brand-message h2{color:#fff;font-size:22px;line-height:1.15;letter-spacing:-.4px;margin:6px 0 0}
+  .login-page.signin .brand-message h2 br{display:none}
+  .login-page.signin .brand-message p{display:block;color:#FFFFFFD6;font-size:13px;line-height:1.35;margin:8px 0 0}
+  .login-page.signin .sign-in-panel{padding:12px 16px calc(8px + env(safe-area-inset-bottom));min-height:0}
+  .login-page.signin .login-card{padding-top:10px}
+  .login-page.signin .login-card form{margin-top:12px}
+  .login-page.signin .role-selector button{min-height:44px}
+  .login-page.signin .pin-label-row{margin-bottom:8px;font-size:14px}
+  .login-page.signin .pin-group{max-width:none;gap:10px}
+  .login-page.signin .pin-input{height:58px;max-height:none;aspect-ratio:auto;border-radius:16px;font-size:28px}
+  .login-page.signin .form-message{min-height:18px;margin:4px auto}
+  .login-page.signin .sign-in-button{max-width:none;height:48px;border-radius:14px;font-size:16px}
+  .login-page.signin .forgot-row{margin-top:2px;font-size:14px}
+  .login-page.signin .forgot-link{min-height:36px;padding:4px 8px}
+  .login-page.signin .login-footer{padding-top:6px;font-size:11px}
   .login-page.signin .intro,.login-page.signin .card-description,.login-page.signin .card-footer,.login-page.signin .sign-in-button>svg{display:none}
   .login-page.signin .login-card h2{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   .login-page .recover-form{max-width:400px;margin-left:auto;margin-right:auto}
   .login-page .recover-form input{height:52px;font-size:16px}
 }
+@media(max-width:960px) and (max-height:700px){
+  .login-page.signin .brand-panel{margin-top:calc(8px + env(safe-area-inset-top));padding:12px 14px}
+  .login-page.signin .brand-message h2{font-size:18px}
+  .login-page.signin .brand-message p{font-size:12px;margin-top:6px}
+  .login-page.signin .pin-input{height:52px;font-size:26px}
+  .login-page.signin .sign-in-button{height:46px}
+  .login-page.signin .login-card form{margin-top:8px}
+}
 @media(max-width:960px) and (max-height:520px){
-  .login-page.signin .brand-panel{padding-top:calc(12px + env(safe-area-inset-top));padding-bottom:0}
-  .login-page.signin .brand-panel .brand-name{font-size:22px}
-  .login-page .login-card form{margin-top:12px}
-  .login-page .pin-input{height:56px;font-size:26px}
-  .login-page .sign-in-button{height:48px}
+  .login-page.signin .brand-message p,.login-page.signin .brand-message .eyebrow{display:none}
+  .login-page.signin .brand-message h2{font-size:16px;margin-top:4px}
+  .login-page.signin .brand-panel .brand-name{font-size:16px}
+  .login-page.signin .pin-input{height:44px;font-size:22px}
+  .login-page.signin .sign-in-button{height:42px}
+  .login-page.signin .login-footer{display:none}
 }
